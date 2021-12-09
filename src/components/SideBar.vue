@@ -25,9 +25,9 @@
             <tr v-for="(quantity, key, idx) in cart" :key="idx">
               <td><i class="icofont-carrot icofont-3x"></i></td>
               <td>{{ key }}</td>
-              <td>$\{{ getPrice(key) }}</td>
+              <td>${{ getPrice(key) }}</td>
               <td class="center">{{ quantity }}</td>
-              <td>$\{{ (quantity * getPrice(key)).toFixed(2)}}</td>
+              <td>${{ (quantity * getPrice(key)).toFixed(2) }}</td>
               <td class="center">
                 <button class="btn btn-light cart-remove" @click="remove(key)">
                   &times;
@@ -39,8 +39,8 @@
 
         <p class="center" v-if="!Object.keys(cart).length"><em>No items in cart</em></p>
         <div class="spread">
-          <span><strong>Total:</strong> $\{{calculateCartTotal()}}</span>
-          <button class="btn btn-light">Checkout</button>
+          <span><strong>Total:</strong> ${{calculateCartTotal()}}</span>
+          <button class="btn btn-light" @click="checkout">Checkout</button>
         </div>
       </div>
     </div>
@@ -63,6 +63,9 @@ export default {
           return acc + ( current[1] * this.getPrice(current[0]))
         }, 0)
         return total.toFixed(2)
+      },
+      checkout() {
+        this.$router.push({ name: 'PastOrders' });
       }
     },
     

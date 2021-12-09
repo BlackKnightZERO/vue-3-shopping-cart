@@ -18,21 +18,22 @@
         <i class="icofont-cart-alt icofont-1x"></i>
         <span id="nav-cart-item-count">Cart ({{ cartItemCount }})</span>
       </div>
-      
   </header>
-  <router-view :inventory="inventory" />
+
+  <router-view :inventory="inventory" :addtocart="addToCart" :cart="cart" />
   <SideBar
     v-if="isSideBarCartVisible" 
     :toggle="toggleSideBarCart"
     :cart="cart"
     :inventory="inventory"
-    :remove="removeCartItem" />
+    :remove="removeCartItem"
+  />
+
 </template>
 
 <script>
 import SideBar from '@/components/SideBar.vue'
 import food from '@/food.json'
-
 
 export default {
   components: {
@@ -49,17 +50,17 @@ export default {
   computed:{
     cartItemCount:{
       get() {
-        return Object.values(this.cart).reduce((acc,curr,index) => {
-          return acc + curr
-        }, 0)
+        // return Object.values(this.cart).reduce((acc,curr,index) => {
+        //   return acc + curr
+        // }, 0)
+        return (Object.keys(this.cart).length > 0) ? Object.keys(this.cart).length : 0;
       }
     }
   },
   methods: {
-    addToCart(name, idx) {
+    addToCart(name, quantity) {
         if( !this.cart[name] ) this.cart[name] = 0
-        this.cart[name] += this.inventory[idx].quantity
-        this.inventory[idx].quantity = 0
+        this.cart[name] += quantity
         console.log(this.cart)
       },
       toggleSideBarCart(){
@@ -67,8 +68,13 @@ export default {
       },
       removeCartItem(name) {
         delete this.cart[name]
-      }
+      },
   },
 }
 </script>
+<style>
+  body{
+    margin: 0px!important;
+  }
+</style>
 
