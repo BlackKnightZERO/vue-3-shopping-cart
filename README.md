@@ -1,3 +1,4 @@
+![ScreenShot_20211209133708](https://user-images.githubusercontent.com/29349064/145456243-72076393-dbf3-47cd-a6f3-c48ae05ae0b1.png)
 # vue-3-shopping-cart
 
 ## Project setup
